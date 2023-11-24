@@ -4,12 +4,12 @@
 
 ## Packages
 
-- [OpenTelemetry collector Builder](https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder)
+- [OpenTelemetry Collector Builder](https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder)
 - [otel-desktop-viewer](https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder)
 
 ## Library
 
-- `buildOtelCollector`: build a custom OpenTelemetry from [configuration](https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder#configuration)
+- `buildOtelCollector`: build a custom OpenTelemetry collector
 
 
 ## Usage
