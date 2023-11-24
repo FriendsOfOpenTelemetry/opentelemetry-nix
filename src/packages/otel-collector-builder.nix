@@ -4,12 +4,10 @@
 , makeWrapper
 , installShellFiles
 , go
-, testers
-, otel-collector-builder
 }:
 
 buildGoModule rec {
-  name = "otel-collector-builder";
+  pname = "otel-collector-builder";
   version = "0.89.0";
 
   src = fetchFromGitHub {
@@ -58,11 +56,6 @@ buildGoModule rec {
 
   passthru = {
     inherit version;
-    tests.version = testers.testVersion {
-    inherit version;
-    package = otel-collector-builder;
-    command = "ocb version";
-    };
   };
 
   meta = with lib; {

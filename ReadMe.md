@@ -1,5 +1,17 @@
-# OpenTelemetry collector builder for Nix
+# OpenTelemetry for Nix
 
-> This repository allows to build a custom OpenTelemetry collector with Nix
+> This repository exposes various packages and a library to build custom collectors
 
-Checkout OpenTelemetry collector builder [documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder)
+## Packages
+
+- [OpenTelemetry collector Builder](https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder)
+- [otel-desktop-viewer](https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder)
+
+## Library
+
+- `buildOtelCollector`: build a custom OpenTelemetry from [configuration](https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder#configuration)
+
+
+## Usage
+
+TBD
