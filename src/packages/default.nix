@@ -8,5 +8,4 @@ let
   otel-desktop-viewer = prev.callPackage ./otel-desktop-viewer.nix { };
 in {
   inherit otel-collector-builder otel-desktop-viewer;
-  default = otel-collector-builder;
 }

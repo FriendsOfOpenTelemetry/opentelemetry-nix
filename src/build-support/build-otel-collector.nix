@@ -1,43 +1,25 @@
-{ pkgs }:
+{ lib
+, stdenv
+, mkOtelCollectorBuilderConfiguration
+, installShellFiles
+, otel-collector-builder
+}:
 
+{ name ? args'.pname
+, vendorHash ? (throw "builOtelCollector: vendorHash is missing")
+, otelBuilder ? otel-collector-builder
+, meta ? { }
+, ...
+}@args':
 let
-  
-  mkConfigurationFile = {
-      name,
-      go,
-      settings
-  }: let
-    jsonFile = pkgs.writeTextFile {
-      name = "${name}-configuration-builder.json";
-      text = builtins.toJSON ({
-        dist = {
-          inherit name;
-          go ="${go}/bin/go";
-          output_path = "output";
-        };
-      } // settings);
-    };
-    in pkgs.runCommand "${name}-configuration-builder.yaml" {
-      nativeBuildInputs = [ pkgs.remarshal ];
-    } ''
-      ${pkgs.remarshal}/bin/remarshal ${jsonFile} --of yaml > $out
-    '';
-  buildOtelCollector = {
-      name,
-      version,
-      vendorHash,
-      settings,
-      builder ? pkgs.otel-collector-builder,
-      go ? pkgs.go
-  }@finalAttrs: pkgs.stdenv.mkDerivation rec {
-    pname = name;
-    inherit version;
+  args = removeAttrs args' [ "vendorHash" ];
+  otelCollectorBuilderConfiguration = mkOtelCollectorBuilderConfiguration (args // { inherit (otelBuilder) go; });
+  otelCollectorBuilderModules = stdenv.mkDerivation {
+    pname = "${name}-modules";
+    inherit (args') version;
+    src = otelCollectorBuilderConfiguration;
 
-    nativeRuntimeInputs = [ builder ];
-
-    src = mkConfigurationFile {
-      inherit name go settings;
-    };
+    nativeBuildInputs = [ otelBuilder otelBuilder.go ];
 
     dontUnpack = true;
 
@@ -53,9 +35,12 @@ let
     buildPhase = ''
       runHook preBuild
 
-      export PATH="${go}/bin:$PATH" 
+      mkdir -p "''${GOPATH}/pkg/mod/cache/download"
 
-      ${pkgs.lib.getExe builder} --config=${src}
+      mkdir -p output
+      ${lib.getExe otelBuilder} \
+        --config=${otelCollectorBuilderConfiguration} \
+        --skip-compilation
 
       runHook postBuild
     '';
@@ -63,20 +48,74 @@ let
     installPhase = ''
       runHook preInstall
 
-      mkdir -p $out/bin
-      cp -r output/${name} $out/bin
+      rm -rf "''${GOPATH}/pkg/mod/cache/download/sumdb"
+      cp -r --reflink=auto "''${GOPATH}/pkg/mod/cache/download" $out
+      cp -r --reflink=auto output $out/output
 
       runHook postInstall
     '';
 
-    passthru = {
-      configurationFile = src;
-    };
+    dontFixup = true;
 
     outputHashMode = "recursive";
-    outputHashAlgo = if (finalAttrs ? vendorHash && finalAttrs.vendorHash != "") then null else "sha256";
-    outputHash = finalAttrs.vendorHash or "";
+    outputHash = vendorHash;
+    outputHashAlgo = if (vendorHash != "") then null else "sha256";
   };
-in {
-  inherit buildOtelCollector mkConfigurationFile;
+in stdenv.mkDerivation {
+  pname = name;
+  inherit (args') version;
+  
+  src = otelCollectorBuilderConfiguration;
+
+  dontUnpack = true;
+
+  nativeBuildInputs = [ otelBuilder otelBuilder.go installShellFiles ];
+
+  configurePhase = ''
+    runHook preConfigure
+
+    export GOCACHE=$TMPDIR/go-cache
+    export GOPATH="$TMPDIR/go"
+    export GOSUMDB=off
+    export GOPROXY=file://${otelCollectorBuilderModules}
+
+    runHook postConfigure
+  '';
+  
+  buildPhase = ''
+    runHook preBuild
+
+    cp -r ${otelCollectorBuilderModules}/output output
+
+    cd output && go install -ldflags="-s -w"
+
+    runHook postBuild
+  '';
+
+  # TODO: In checkPhase, parse ouput of `build components` to assert presence of exporters, receivers & processors
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/bin
+    dir="$GOPATH/bin"
+    [ -e "$dir" ] && cp $dir/builder $out/bin/${name}
+
+    runHook postInstall
+  '';
+
+  postInstall = ''
+    installShellCompletion --cmd ${name} \
+    --bash <($out/bin/${name} completion bash) \
+    --fish <($out/bin/${name} completion fish) \
+    --zsh <($out/bin/${name} completion zsh)
+  '';
+
+  passthru = {
+    inherit otelBuilder otelCollectorBuilderConfiguration otelCollectorBuilderModules vendorHash;
+  };
+
+  meta = {
+    platforms = otelBuilder.go.meta.platforms or lib.platforms.all;
+  } // meta;
 }

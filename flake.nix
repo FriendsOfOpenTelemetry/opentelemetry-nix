@@ -7,27 +7,17 @@
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
+      overlays = [ self.overlays.default ];
     };
     overlay = import ./src/overlay.nix inputs;
   in {
 
     overlays.default = overlay;
 
-    # packages.${system} = {
-    #   otel-collector-custom = lib.buildOtelCollector {
-    #     name = "otel-collector-debugexporter";
-    #     version = "1.0.0-0.86.0";
-    #     settings = {
-    #       exporters = [
-    #         { gomod = "go.opentelemetry.io/collector/exporter/debugexporter v0.86.0"; }
-    #       ];
-    #     };
-    #     vendorHash = "sha256-ntLTJQkP+tiMK2VTlH9vfJzcOJGFfloRW1CIIW2iwUg=";
-    #     builder = pkgs.opentelemetry.otel-collector-builder;
-    #   };
-    #   default = self.packages.${system}.otel-collector-custom;
-    # };
+    devShells.${system}.default = pkgs.mkShell {
+      packages = [ pkgs.go ];
+    };
 
-    packages.${system} = (pkgs.lib.filterAttrs (k: v: pkgs.lib.isDerivation v) (overlay null pkgs));
+    packages.${system} = pkgs.lib.filterAttrs (n: v: pkgs.lib.isDerivation v) (overlay null pkgs);
   };
 }

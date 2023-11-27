@@ -55,7 +55,7 @@ buildGoModule rec {
   '';
 
   passthru = {
-    inherit version;
+    inherit version go;
   };
 
   meta = with lib; {
