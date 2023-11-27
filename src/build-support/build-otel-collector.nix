@@ -61,10 +61,11 @@ let
     outputHash = vendorHash;
     outputHashAlgo = if (vendorHash != "") then null else "sha256";
   };
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   pname = name;
   inherit (args') version;
-  
+
   src = otelCollectorBuilderConfiguration;
 
   dontUnpack = true;
@@ -81,7 +82,7 @@ in stdenv.mkDerivation {
 
     runHook postConfigure
   '';
-  
+
   buildPhase = ''
     runHook preBuild
 

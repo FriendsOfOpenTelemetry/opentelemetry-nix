@@ -30,7 +30,7 @@ buildGoModule rec {
     "-w"
     "-X go.opentelemetry.io/collector/cmd/builder/internal.version=${version}"
     "-X go.opentelemetry.io/collector/cmd/builder/internal.date=now"
-  ]; 
+  ];
 
   CGO_ENABLED = 0;
 
