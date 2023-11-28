@@ -22,7 +22,7 @@ buildGoModule rec {
 
   meta = with lib; {
     changelog = "https://github.com/CtrlSpice/otel-desktop-viewer/releases/tag/v${version}";
-    description = "Desktop-collector";
+    description = "Receive OpenTelemetry traces while working on your local machine";
     homepage = "https://github.com/CtrlSpice/otel-desktop-viewer";
     license = licenses.asl20;
     maintainers = with maintainers; [ gaelreyrol ];

@@ -59,8 +59,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "Generates a custom OpenTelemetry Collector binary based on a given configuration";
     changelog = "https://github.com/open-telemetry/opentelemetry-collector/releases/tag/cmd/builder/v${version}";
+    description = "Generates a custom OpenTelemetry Collector binary based on a given configuration";
     homepage = "https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder";
     license = licenses.asl20;
     mainProgram = "ocb";
