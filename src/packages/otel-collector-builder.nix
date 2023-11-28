@@ -8,13 +8,13 @@
 
 buildGoModule rec {
   pname = "otel-collector-builder";
-  version = "0.89.0";
+  version = "0.90.0";
 
   src = fetchFromGitHub {
     owner = "open-telemetry";
     repo = "opentelemetry-collector";
     rev = "v${version}";
-    hash = "sha256-SICpGj8sk24Y07Vn5gWO8QGvc/4PnG7rBVq/i5tR0vg=";
+    hash = "sha256-FL0lNlofXHTdn5o6g4FHNYauzJkjCKTrspSXP9slp/A=";
   };
 
   sourceRoot = "source/cmd/builder";

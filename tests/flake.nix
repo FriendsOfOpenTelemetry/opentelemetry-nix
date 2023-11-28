@@ -19,13 +19,13 @@
       packages.x86_64-linux = {
         debug = pkgs.buildOtelCollector {
           pname = "otel-collector-debugexporter";
-          version = "1.0.0-0.86.0";
+          version = "1.0.0";
           config = {
             exporters = [
-              { gomod = "go.opentelemetry.io/collector/exporter/debugexporter v0.86.0"; }
+              { gomod = "go.opentelemetry.io/collector/exporter/debugexporter v0.90.0"; }
             ];
           };
-          vendorHash = "sha256-EEPIm3mQDGa418vhUtO5NlzoF7b5ggbTI8zcxbjttIg=";
+          vendorHash = "sha256-2g0xe9kLJEbgU9m+2jmWA5Gym7EYHlelsyU0hfLViUY=";
         };
         default = self.packages.x86_64-linux.debug;
       };
