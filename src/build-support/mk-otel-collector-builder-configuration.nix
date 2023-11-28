@@ -5,7 +5,7 @@
 }:
 
 { name ? "${args'.pname}-${args'.version}-builder-configuration"
-, config ? {}
+, config ? { }
 , go
 , ...
 }@args':
