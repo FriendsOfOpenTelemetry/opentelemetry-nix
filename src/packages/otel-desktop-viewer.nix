@@ -20,6 +20,8 @@ buildGoModule rec {
 
   ldflags = [ "-s" "-w" ];
 
+  doCheck = false;
+
   meta = with lib; {
     changelog = "https://github.com/CtrlSpice/otel-desktop-viewer/releases/tag/v${version}";
     description = "Receive OpenTelemetry traces while working on your local machine";

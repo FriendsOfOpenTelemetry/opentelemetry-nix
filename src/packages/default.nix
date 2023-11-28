@@ -3,10 +3,9 @@ inputs:
 final:
 prev:
 
-let
+{
+  grafana-agent = (prev.callPackage ./grafana-agent { }) { };
   otel-collector-builder = prev.callPackage ./otel-collector-builder.nix { };
   otel-desktop-viewer = prev.callPackage ./otel-desktop-viewer.nix { };
-in
-{
-  inherit otel-collector-builder otel-desktop-viewer;
+  tracetest = prev.callPackage ./tracetest.nix { };
 }

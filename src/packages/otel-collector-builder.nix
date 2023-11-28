@@ -34,8 +34,6 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  doCheck = false;
-
   installPhase = ''
     runHook preInstall
   
@@ -53,6 +51,8 @@ buildGoModule rec {
     --fish <($out/bin/ocb completion fish) \
     --zsh <($out/bin/ocb completion zsh)
   '';
+
+  doCheck = false;
 
   passthru = {
     inherit version go;

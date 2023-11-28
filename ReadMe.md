@@ -8,6 +8,7 @@
 
 ## Packages
 
+- [grafana-agent](https://github.com/grafana/agent) - Vendor-neutral programmable observability pipelines
 - [otel-collector-builder](https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder) - Generates a custom OpenTelemetry Collector binary based on a given configuration
 - [otel-desktop-viewer](https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder) - Receive OpenTelemetry traces while working on your local machine
 
@@ -24,7 +25,7 @@ Each package is exposed as an application, you can run each one of them with `ni
 
 ```bash
 nix run github:FriendsOfOpenTelemtry/opentelemetry-nix#otel-collector-builder
-nix run github:FriendsOfOpenTelemtry/opentelemetry-nix#otel-desktop-viewer
+nix run github:FriendsOfOpenTelemtry/opentelemetry-nix#{package-name}
 ```
 
 Please refer to the [nix run](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-run) documentation for wider use.
