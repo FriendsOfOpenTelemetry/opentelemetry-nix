@@ -14,27 +14,29 @@
   disableDataCollection ? true # https://grafana.com/docs/agent/latest/data-collection/
 }: let
   pname = "grafana-agent";
-  version = "0.38.0";
+  version = "0.38.1";
   src = fetchFromGitHub {
     owner = "grafana";
     repo = "agent";
     rev = "v${version}";
-    hash = "sha256-lXjtKZJNkYffizNiX+rrRVu94mr+WXnsKKpEaLdd2Rs=";
+    hash = "sha256-caqJE92yEzqU/UQS7Cgxe+4+wGqBqPshhhPAyPP2WPQ=";
   };
   ui = buildNpmPackage {
     inherit pname version src;
 
-    sourceRoot = "source/web";
+    sourceRoot = "source/web/ui";
 
     patches = [ ./package-lock-json.patch ];
 
-    npmDepsHash = "sha256-qHf40/TnUG99aFL9u6y2pbbpWlb7+jjvmNrtMLEwjj0=";
+    npmDepsHash = "sha256-02WpeMAH12catR9sxo6hPZgNtdgEWwp0wF0YquUZ/rE=";
 
     npmPackFlags = [ "--ignore-scripts" ];
 
     npmFlags = [ "--legacy-peer-deps" ];
-
+    
     makeCacheWritable = true;
+
+    NODE_OPTIONS = "--openssl-legacy-provider";
 
     env.CYPRESS_INSTALL_BINARY = 0;
 
@@ -53,7 +55,7 @@ in buildGoModule {
 
   subPackages = [ "cmd/grafana-agentctl" "cmd/grafana-agent" "cmd/grafana-agent-flow" ];
 
-  vendorHash = "sha256-MV5moivZ3PN77+OjvmJD5bL5qFOACkAAMfujMQv66Mw=";
+  vendorHash = "sha256-XIJkgUYwhiFc34vLhvwCyjrb3vB6A8IeFJ23vvPEZNc=";
 
   env = {
     GOEXPERIMENT = lib.optionalString enableBoringCrypto "boringcrypto";
@@ -70,7 +72,11 @@ in buildGoModule {
     "-X github.com/grafana/agent/pkg/build.BuildDate=now"
   ];
 
-  tags = [ "netgo" "promtail_journal_enabled" ];
+  tags = [ "netgo" "builtinassets" "promtail_journal_enabled" ];
+
+  preBuild = ''
+    cp -r ${ui} web/ui/build
+  '';
 
   postInstall = '';
     installShellCompletion --cmd grafana-agentctl \
