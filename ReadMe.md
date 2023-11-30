@@ -114,3 +114,11 @@ packages.x86_64-linux.default = pkgs.mkOtelCollectorBuilderConfiguration {
 - `version`: The configuration version.
 - `config`: The configuration to use. It must match the exact YAML representation of the configuration options mentionned in the builder [documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder#configuration) for `extensions, exporters, receivers, processors & replaces` options.
 - `goPackage`: The go package to use when building the generated configuration file with the OpenTelemetry collector builder.
+
+## Cachix
+
+Cachix is used to store package binaries. 
+
+To use our cache, run `cachix use opentelemetry`.
+
+Refer to the [documentation](https://docs.cachix.org/) to install Cachix.
