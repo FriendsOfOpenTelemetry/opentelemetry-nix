@@ -57,7 +57,7 @@ in buildGoModule rec {
 
   meta = with lib; {
     changelog = "https://github.com/kubeshop/tracetest/releases/tag/v${version}";
-    description = "Tracetest - Build integration and end-to-end tests in minutes, instead of days, using OpenTelemetry and trace-based testing";
+    description = "Build integration and end-to-end tests in minutes using OpenTelemetry and trace-based testing";
     homepage = "https://github.com/kubeshop/tracetest";
     license = licenses.mit;
     mainProgram = "tracetest";
