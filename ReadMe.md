@@ -1,6 +1,8 @@
 # OpenTelemetry for Nix
 
-[![.github/workflows/ci.yml](https://github.com/FriendsOfOpenTelemetry/opentelemetry-nix/actions/workflows/ci.yml/badge.svg)](https://github.com/FriendsOfOpenTelemetry/opentelemetry-nix/actions/workflows/ci.yml)
+[![.github/workflows/build.yml](https://github.com/FriendsOfOpenTelemetry/opentelemetry-nix/actions/workflows/build.yml/badge.svg)](https://github.com/FriendsOfOpenTelemetry/opentelemetry-nix/actions/workflows/build.yml)
+[![.github/workflows/check.yml](https://github.com/FriendsOfOpenTelemetry/opentelemetry-nix/actions/workflows/check.yml/badge.svg)](https://github.com/FriendsOfOpenTelemetry/opentelemetry-nix/actions/workflows/check.yml)
+
 [![flakestry.dev](https://flakestry.dev/api/badge/flake/github/FriendsOfOpenTelemetry/opentelemetry-nix)](https://flakestry.dev/flake/github/FriendsOfOpenTelemetry/opentelemetry-nix)
 [![FlakeHub](https://img.shields.io/endpoint?url=https://flakehub.com/f/FriendsOfOpenTelemetry/opentelemetry-nix/badge)](https://flakehub.com/flake/FriendsOfOpenTelemetry/opentelemetry-nix)
 
