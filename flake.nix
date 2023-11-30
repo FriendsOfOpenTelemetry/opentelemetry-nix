@@ -22,7 +22,7 @@
         formatter = pkgs.nixpkgs-fmt;
 
         devShells.default = pkgs.mkShell {
-          packages = [ pkgs.go ];
+          packages = [ pkgs.go pkgs.actionlint pkgs.yamlfmt ];
         };
 
         packages = lib.filterAttrs (n: v: lib.isDerivation v) (self.overlays.default null pkgs);
