@@ -7,19 +7,19 @@
 
 { name ? args'.pname
 , vendorHash ? (throw "builOtelCollector: vendorHash is missing")
-, otelBuilder ? otel-collector-builder
+, otelBuilderPackage ? otel-collector-builder
 , meta ? { }
 , ...
 }@args':
 let
   args = removeAttrs args' [ "vendorHash" ];
-  otelCollectorBuilderConfiguration = mkOtelCollectorBuilderConfiguration (args // { inherit (otelBuilder) go; });
+  otelCollectorBuilderConfiguration = mkOtelCollectorBuilderConfiguration (args // { goPackage = otelBuilderPackage.go; });
   otelCollectorBuilderModules = stdenv.mkDerivation {
     pname = "${name}-modules";
     inherit (args') version;
     src = otelCollectorBuilderConfiguration;
 
-    nativeBuildInputs = [ otelBuilder otelBuilder.go ];
+    nativeBuildInputs = [ otelBuilderPackage otelBuilderPackage.go ];
 
     dontUnpack = true;
 
@@ -38,7 +38,7 @@ let
       mkdir -p "''${GOPATH}/pkg/mod/cache/download"
 
       mkdir -p output
-      ${lib.getExe otelBuilder} \
+      ${lib.getExe otelBuilderPackage} \
         --config=${otelCollectorBuilderConfiguration} \
         --skip-compilation
 
@@ -70,7 +70,7 @@ stdenv.mkDerivation {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ otelBuilder otelBuilder.go installShellFiles ];
+  nativeBuildInputs = [ otelBuilderPackage otelBuilderPackage.go installShellFiles ];
 
   configurePhase = ''
     runHook preConfigure
@@ -113,10 +113,10 @@ stdenv.mkDerivation {
   '';
 
   passthru = {
-    inherit otelBuilder otelCollectorBuilderConfiguration otelCollectorBuilderModules vendorHash;
+    inherit otelBuilderPackage otelCollectorBuilderConfiguration otelCollectorBuilderModules vendorHash;
   };
 
   meta = {
-    platforms = otelBuilder.go.meta.platforms or lib.platforms.all;
+    platforms = otelBuilderPackage.go.meta.platforms or lib.platforms.all;
   } // meta;
 }

@@ -1,12 +1,13 @@
 { lib
 , writeTextFile
 , runCommand
+, go
 , remarshal
 }:
 
 { name ? "${args'.pname}-${args'.version}-builder-configuration"
 , config ? { }
-, go
+, goPackage ? go
 , ...
 }@args':
 let
@@ -15,7 +16,7 @@ let
     text = builtins.toJSON ({
       dist = {
         name = args'.pname;
-        go = "${go}/bin/go";
+        go = "${goPackage}/bin/go";
         output_path = "output";
       };
     } // args'.config);
