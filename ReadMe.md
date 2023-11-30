@@ -90,7 +90,7 @@ packages.x86_64-linux.default = pkgs.buildOtelCollector {
 - `version`: The package version.
 - `config`: The configuration that will be passed to `mkOtelCollectorBuilderConfiguration`. It must match the exact YAML representation of the configuration options mentionned in the builder [documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder#configuration) for `extensions, exporters, receivers, processors & replaces` options.
 - `vendorHash`: The hash of the custom collector sources & modules.
-- `otelBuilder`: The OpenTelemetry collector builder package to use, defaults the one available in this flake.
+- `otelBuilderPackage`: The OpenTelemetry collector builder package to use, defaults the one available in this flake.
 - `meta`: The meta attributes to use to describe the custom OpenTelemetry collector package.
 
 ##### `mkOtelCollectorBuilderConfiguration`: Create an OpenTelemetry collector builder configuration file
@@ -113,4 +113,4 @@ packages.x86_64-linux.default = pkgs.mkOtelCollectorBuilderConfiguration {
 - `pname`: The configuration name.
 - `version`: The configuration version.
 - `config`: The configuration to use. It must match the exact YAML representation of the configuration options mentionned in the builder [documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder#configuration) for `extensions, exporters, receivers, processors & replaces` options.
-- `go`: The go package to use when building the generated configuration file with the OpenTelemetry collector builder.
+- `goPackage`: The go package to use when building the generated configuration file with the OpenTelemetry collector builder.
