@@ -9,7 +9,7 @@ on:
       - ".github/workflows/*.yml"
 jobs:
   determine-matrix:
-    name: Find packages to build
+    name: Find packages
     runs-on: ubuntu-latest
     outputs:
       packages: ${{ steps.set-packages.outputs.packages }}
@@ -45,5 +45,19 @@ jobs:
           name: opentelemetry
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
       - name: Build ${{ matrix.packages }} binary
-        run: |-
-          nix build .#${{ matrix.packages }}
+        run: |
+          nix build .#${{ matrix.packages }} -L
+  tests-build:
+    name: Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tests
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v8
+      - name: Flake Build
+        run: |
+          nix build -L
