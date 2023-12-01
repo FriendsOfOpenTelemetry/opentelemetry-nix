@@ -2,23 +2,24 @@
 , buildNpmPackage
 , buildGoModule
 , fetchFromGitHub
+, installShellFiles
 }:
 
 let
   pname = "tracetest";
-  version = "0.14.7";
+  version = "0.14.8";
   src = fetchFromGitHub {
     owner = "kubeshop";
     repo = "tracetest";
     rev = "v${version}";
-    hash = "sha256-9D4HUSbybMmerB5tXqQAwNXk+uaktrt0PJVlA5x0BYg=";
+    hash = "sha256-FkpxTtxUig0YNHpr0WKmxajLxhOGqRJqeG+dHz9Plcs=";
   };
   ui = buildNpmPackage {
     inherit pname version src;
 
     sourceRoot = "source/web";
 
-    npmDepsHash = "sha256-CiF71pWlUwAE/sZQh3NcC4sF36vNifV0YrsCteBIO2s=";
+    npmDepsHash = "sha256-YDPknS7EsA/SVFdMUE7ihjuxONgMgEyMxJO3pBWyH8U=";
 
     npmPackFlags = [ "--ignore-scripts" ];
 
@@ -35,7 +36,9 @@ let
 in buildGoModule rec {
   inherit pname version src;
 
-  vendorHash = "sha256-6ojTDKA5XgOzmNHWID8lwH/07O0PC5wNNsCfTBZquEI=";
+  vendorHash = "sha256-Zl2hpJ9NMWHCWS4fbSXjWFU1vK658Ozme/UoBH/2Cpg=";
+
+  nativeBuildInputs = [ installShellFiles ];
 
   subPackages = [ "cli" "server" ];
 
@@ -47,6 +50,28 @@ in buildGoModule rec {
 
   preBuild = ''
     cp -r ${ui} web/build
+  '';
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/bin
+    cp $GOPATH/bin/cli $out/bin/tracetest
+    cp $GOPATH/bin/server $out/bin/tracetest-server
+
+    runHook postInstall
+  '';
+
+  postInstall = ''
+    installShellCompletion --cmd tracetest \
+      --bash <($out/bin/tracetest completion bash) \
+      --fish <($out/bin/tracetest completion fish) \
+      --zsh <($out/bin/tracetest completion zsh)
+
+    installShellCompletion --cmd tracetest-server \
+      --bash <($out/bin/tracetest-server completion bash) \
+      --fish <($out/bin/tracetest-server completion fish) \
+      --zsh <($out/bin/tracetest-server completion zsh)
   '';
 
   doCheck = false;
