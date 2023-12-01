@@ -8,9 +8,9 @@
 , installShellFiles
 }:
 
-{
-  enableBoringCrypto ? false # https://grafana.com/docs/agent/latest/about/#boringcrypto
-}: let
+{ enableBoringCrypto ? false # https://grafana.com/docs/agent/latest/about/#boringcrypto
+}:
+let
   pname = "grafana-agent";
   version = "0.38.1";
   src = fetchFromGitHub {
@@ -31,7 +31,7 @@
     npmPackFlags = [ "--ignore-scripts" ];
 
     npmFlags = [ "--legacy-peer-deps" ];
-    
+
     makeCacheWritable = true;
 
     NODE_OPTIONS = "--openssl-legacy-provider";
@@ -46,7 +46,8 @@
       runHook postInstall
     '';
   };
-in buildGoModule {
+in
+buildGoModule {
   inherit pname version src;
 
   nativeBuildInputs = [ systemd.dev makeWrapper installShellFiles ];

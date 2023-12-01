@@ -33,7 +33,8 @@ let
       runHook postInstall
     '';
   };
-in buildGoModule rec {
+in
+buildGoModule rec {
   inherit pname version src;
 
   vendorHash = "sha256-Zl2hpJ9NMWHCWS4fbSXjWFU1vK658Ozme/UoBH/2Cpg=";

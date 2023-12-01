@@ -3,48 +3,48 @@ on:
   pull_request:
   push:
     branches:
-      - "main"
+      - 'main'
     paths:
-      - "**.nix"
-      - ".github/workflows/*.yml"
+      - '**.nix'
+      - '.github/workflows/*.yml'
 jobs:
   determine-matrix:
-    name: Find packages
+    name: 'Find packages'
     runs-on: ubuntu-latest
     outputs:
-      packages: ${{ steps.set-packages.outputs.packages }}
+      packages: '${{ steps.set-packages.outputs.packages }}'
     steps:
-      - name: Set up Git repository
+      - name: 'Set up Git repository'
         uses: actions/checkout@v4
-      - name: Install Nix
+      - name: 'Install Nix'
         uses: DeterminateSystems/nix-installer-action@v8
-      - name: Build packages matrix
+      - name: 'Build packages matrix'
         id: set-packages
         run: |
           echo packages=$(
             nix flake show --json | jq '.packages["x86_64-linux"]' | jq 'keys'
           ) >> $GITHUB_OUTPUT
   build:
-    name: "${{ matrix.packages }} on ${{ matrix.archs.arch }}"
+    name: '${{ matrix.packages }} on ${{ matrix.archs.arch }}'
     needs: [determine-matrix]
-    runs-on: ${{ matrix.archs.os }}
+    runs-on: '${{ matrix.archs.os }}'
     strategy:
       fail-fast: false
       matrix:
-        packages: ${{fromJson(needs.determine-matrix.outputs.packages)}}
+        packages: '${{fromJson(needs.determine-matrix.outputs.packages)}}'
         archs: [{os: ubuntu-latest, arch: x86_64-linux}]
     steps:
-      - name: Set up Git repository
+      - name: 'Set up Git repository'
         uses: actions/checkout@v4
-      - name: Install Nix
+      - name: 'Install Nix'
         uses: DeterminateSystems/nix-installer-action@main
-      - name: Run the Magic Nix Cache
+      - name: 'Run the Magic Nix Cache'
         uses: DeterminateSystems/magic-nix-cache-action@main
       - uses: cachix/cachix-action@v13
         with:
           name: opentelemetry
-          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-      - name: Build ${{ matrix.packages }} binary
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+      - name: 'Build ${{ matrix.packages }} binary'
         run: |
           nix build .#${{ matrix.packages }} -L
   tests-build:
@@ -54,10 +54,10 @@ jobs:
       run:
         working-directory: tests
     steps:
-      - name: Set up Git repository
+      - name: 'Set up Git repository'
         uses: actions/checkout@v4
-      - name: Install Nix
+      - name: 'Install Nix'
         uses: DeterminateSystems/nix-installer-action@v8
-      - name: Flake Build
+      - name: 'Flake Build'
         run: |
           nix build -L
