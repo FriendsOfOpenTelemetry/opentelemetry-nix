@@ -9,9 +9,7 @@
 }:
 
 {
-  enableBoringCrypto ? false
-, # https://grafana.com/docs/agent/latest/about/#boringcrypto
-  disableDataCollection ? true # https://grafana.com/docs/agent/latest/data-collection/
+  enableBoringCrypto ? false # https://grafana.com/docs/agent/latest/about/#boringcrypto
 }: let
   pname = "grafana-agent";
   version = "0.38.1";
@@ -78,7 +76,7 @@ in buildGoModule {
     cp -r ${ui} web/ui/build
   '';
 
-  postInstall = '';
+  postInstall = ''
     installShellCompletion --cmd grafana-agentctl \
       --bash <($out/bin/grafana-agentctl completion bash) \
       --fish <($out/bin/grafana-agentctl completion fish) \
