@@ -8,13 +8,13 @@
 
 buildGoModule rec {
   pname = "otel-collector-builder";
-  version = "0.90.1";
+  version = "0.91.0";
 
   src = fetchFromGitHub {
     owner = "open-telemetry";
     repo = "opentelemetry-collector";
     rev = "v${version}";
-    hash = "sha256-JKcYvJtuN38VrhcVFHRc0CKTH+x8HShs1/Ui0iN1jNo=";
+    hash = "sha256-PHxQD+9cJGfCE6Cr7nYKt5n2lrTzIfUdsLvkprlNNBg=";
   };
 
   sourceRoot = "source/cmd/builder";
@@ -52,7 +52,8 @@ buildGoModule rec {
     --zsh <($out/bin/ocb completion zsh)
   '';
 
-  doCheck = false;
+  # GenerateAndCompile test run `go get`.
+  checkFlags = [ "-skip=TestGenerateAndCompile" ];
 
   passthru = {
     inherit version go;
