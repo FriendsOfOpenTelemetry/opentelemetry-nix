@@ -7,12 +7,12 @@
 
 let
   pname = "tracetest";
-  version = "0.14.9";
+  version = "0.15.0";
   src = fetchFromGitHub {
     owner = "kubeshop";
     repo = "tracetest";
     rev = "v${version}";
-    hash = "sha256-DV7t2Q0JV663DARPnMGgDaPxlyHiRKhWjm9pon7fqW0=";
+    hash = "sha256-uXK6ePaacmzWIAuI4a5CUxzjqU8UyxTdT1kOkTgb4os=";
   };
   ui = buildNpmPackage {
     inherit pname version src;
