@@ -10,9 +10,7 @@
 
 ## Packages
 
-- [grafana-agent](https://github.com/grafana/agent) - Vendor-neutral programmable observability pipelines
 - [otel-collector-builder](https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder) - Generates a custom OpenTelemetry Collector binary based on a given configuration
-- [otel-desktop-viewer](https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder) - Receive OpenTelemetry traces while working on your local machine
 - [tracetest](https://github.com/kubeshop/tracetest) - Build integration and end-to-end tests in minutes using OpenTelemetry and trace-based testing
 
 ## Library
