@@ -60,7 +60,7 @@ Use the packages:
 ```nix
 # for example in a devShell:
 devShells.x86_64-linux.default = pkgs.mkShell {
-  packages = [ pkgs.otel-desktop-viewer ];
+  packages = [ pkgs.otel-collector-builder ];
 }
 ```
 
