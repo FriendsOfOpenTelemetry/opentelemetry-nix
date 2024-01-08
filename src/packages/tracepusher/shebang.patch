@@ -1,0 +1,10 @@
+diff --git a/tracepusher.py b/tracepusher.py
+index c23c526..e0490b4 100644
+--- a/tracepusher.py
++++ b/tracepusher.py
+@@ -1,3 +1,5 @@
++#! /usr/bin/env python
++
+ import sys
+ import requests
+ import time

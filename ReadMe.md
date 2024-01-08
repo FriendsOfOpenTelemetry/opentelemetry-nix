@@ -12,6 +12,8 @@
 
 - [otel-collector-builder](https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder) - Generates a custom OpenTelemetry Collector binary based on a given configuration
 - [tracetest](https://github.com/kubeshop/tracetest) - Build integration and end-to-end tests in minutes using OpenTelemetry and trace-based testing
+- [tracepusher](https://github.com/agardnerIT/tracepusher) - Generate and push OpenTelemetry Trace data to an OTEL collector in JSON format 
+- [har-to-otel](https://github.com/agardnerIT/tracepusher/tree/main/har-to-otel) - Chrome DevTools HAR file to OpenTelemetry converter
 
 ## Library
 
