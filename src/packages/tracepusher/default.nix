@@ -7,7 +7,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "tracepusher";
-  version = "0.9.0";
+  version = "0.10.0";
   format = "setuptools";
 
   disabled = python3.pythonOlder "3.11";
@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     owner = "agardnerIT";
     repo = "tracepusher";
     rev = version;
-    hash = "sha256-OtdIIw6DxyTHZusuP3oJxxXJ4Ic0zoYQa805jHvh9oo=";
+    hash = "sha256-QxisvPLn62WuTHF1592Q5b5w4W0GskgknrKctgNcmFk=";
   };
 
   patches = [ ./shebang.patch ];
