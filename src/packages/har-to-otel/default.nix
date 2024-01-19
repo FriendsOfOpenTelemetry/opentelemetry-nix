@@ -7,7 +7,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "har-to-otel";
-  version = "0.9.0";
+  version = "0.10.0";
   format = "setuptools";
 
   disabled = python3.pythonOlder "3.11";
@@ -15,8 +15,8 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "agardnerIT";
     repo = "tracepusher";
-    rev = "668053739ee93556f6a121bf0f047514379c4596";
-    hash = "sha256-w+xrp2uHoXZQv4YzM1Kmiv2KSlM0iHh1n8OlgUcq0OQ=";
+    rev = version;
+    hash = "sha256-QxisvPLn62WuTHF1592Q5b5w4W0GskgknrKctgNcmFk=";
   };
 
   patches = [ ./shebang.patch ];
