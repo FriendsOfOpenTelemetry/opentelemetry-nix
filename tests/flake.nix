@@ -26,7 +26,7 @@
       packages.x86_64-linux = {
         debug-otel-collector = pkgs.buildOtelCollector {
           inherit pname version config;
-          vendorHash = "sha256-0hZU1lF/2+oF9aaBl88fMvRTONrafYJriJlc4JuNnw4=";
+          vendorHash = "sha256-Z5KAoTmYwXMstHmuy5Vwl16qGungPf4OcLG2wAUMeSM=";
         };
         debug-otel-config = pkgs.mkOtelCollectorBuilderConfiguration {
           inherit pname version config;
