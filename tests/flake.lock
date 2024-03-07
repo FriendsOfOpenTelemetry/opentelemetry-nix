@@ -62,12 +62,12 @@
       },
       "locked": {
         "lastModified": 0,
-        "narHash": "sha256-iQrbeSzpj8SXqx/e2FqmR6dpRgz9/wJZrZwilD0W1fI=",
-        "path": "/nix/store/jjmdhrka9c4fl33l62q4vqyhj7i25im0-source",
+        "narHash": "sha256-xWmVbBSpIUkSd8BGqc8UhM7JFeGwwTLX+p0wAMTmjis=",
+        "path": "/nix/store/r6yay4b495zmlfv6ri9hp240v5kanlba-source",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/jjmdhrka9c4fl33l62q4vqyhj7i25im0-source",
+        "path": "/nix/store/r6yay4b495zmlfv6ri9hp240v5kanlba-source",
         "type": "path"
       }
     },
