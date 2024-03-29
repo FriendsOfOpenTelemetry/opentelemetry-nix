@@ -7,12 +7,12 @@
 
 let
   pname = "tracetest";
-  version = "0.16.0";
+  version = "0.16.1";
   src = fetchFromGitHub {
     owner = "kubeshop";
     repo = "tracetest";
     rev = "v${version}";
-    hash = "sha256-9dU1aATcz6IzNGBLr618V1+bcPNrB9XPghz1Ldb4VLA=";
+    hash = "sha256-3YzCq3mOcF42dzxhkkk7089Xv1BmwHODbDkEhs1aAmk=";
   };
   ui = buildNpmPackage {
     inherit pname version src;
@@ -21,7 +21,7 @@ let
 
     patches = [ ./package-lock.patch ];
 
-    npmDepsHash = "sha256-JWa9wsZKXLyUB1PzFP+znXiDaBHnz1uW7nsrh1p9kPA=";
+    npmDepsHash = "sha256-ktEYoaakYyxj6uwkFwwAiY4faw5K91GaxvPs8v2n7TA=";
 
     npmPackFlags = [ "--ignore-scripts" ];
 
@@ -39,7 +39,7 @@ in
 buildGoModule rec {
   inherit pname version src;
 
-  vendorHash = "sha256-Ju7ZNofbS0zmfGDrmCYNvCY6NmjZsxlYY4rQubfnB4I=";
+  vendorHash = "sha256-QzdrqNtQQJ/aOTOFsagvlOxGS5wzZOvulLNhPXbYjnY=";
 
   nativeBuildInputs = [ installShellFiles ];
 
