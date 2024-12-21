@@ -46,6 +46,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/agardnerIT/tracepusher/tree/main/har-to-otel";
     license = licenses.asl20;
     maintainers = with maintainers; [ gaelreyrol ];
-    mainProgrom = "har-to-otel.py";
+    mainProgram = "har-to-otel.py";
   };
 }
