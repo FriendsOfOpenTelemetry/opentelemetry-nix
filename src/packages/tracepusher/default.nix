@@ -1,8 +1,9 @@
-{ lib
-, python3
-, python3Packages
-, fetchFromGitHub
-, substituteAll
+{
+  lib,
+  python3,
+  python3Packages,
+  fetchFromGitHub,
+  substituteAll,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -21,15 +22,17 @@ python3Packages.buildPythonApplication rec {
 
   patches = [ ./shebang.patch ];
 
-  postPatch = let
-    setup = substituteAll {
-      src = ./setup.py;
-      desc = meta.description;
-      inherit pname version;
-    };
-  in ''
-    ln -s ${setup} setup.py
-  '';
+  postPatch =
+    let
+      setup = substituteAll {
+        src = ./setup.py;
+        desc = meta.description;
+        inherit pname version;
+      };
+    in
+    ''
+      ln -s ${setup} setup.py
+    '';
 
   propagatedBuildInputs = [
     python3Packages.requests

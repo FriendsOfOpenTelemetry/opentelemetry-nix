@@ -10,7 +10,6 @@
 
 ## Packages
 
-- [otel-collector-builder](https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder) - Generates a custom OpenTelemetry Collector binary based on a given configuration
 - [tracetest](https://github.com/kubeshop/tracetest) - Build integration and end-to-end tests in minutes using OpenTelemetry and trace-based testing
 - [tracepusher](https://github.com/agardnerIT/tracepusher) - Generate and push OpenTelemetry Trace data to an OTEL collector in JSON format 
 - [har-to-otel](https://github.com/agardnerIT/tracepusher/tree/main/har-to-otel) - Chrome DevTools HAR file to OpenTelemetry converter
@@ -77,10 +76,10 @@ packages.x86_64-linux.default = pkgs.buildOtelCollector {
   version = "1.0.0";
   config = {
     exporters = [
-      { gomod = "go.opentelemetry.io/collector/exporter/debugexporter v0.90.0"; }
+      { gomod = "go.opentelemetry.io/collector/exporter/debugexporter v0.115.0"; }
     ];
   };
-  vendorHash = "sha256-2g0xe9kLJEbgU9m+2jmWA5Gym7EYHlelsyU0hfLViUY=";
+  vendorHash = "sha256-sq3T9bOWDeJMZD9+LE4nPc9fqF3tkEaGEy4dJ/qgkgA=";
 }
 ```
 
@@ -102,7 +101,7 @@ packages.x86_64-linux.default = pkgs.mkOtelCollectorBuilderConfiguration {
   version = "1.0.0";
   config = {
     exporters = [
-      { gomod = "go.opentelemetry.io/collector/exporter/debugexporter v0.90.0"; }
+      { gomod = "go.opentelemetry.io/collector/exporter/debugexporter v0.115.0"; }
     ];
   };
 }

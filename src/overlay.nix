@@ -1,7 +1,6 @@
 inputs:
 
-final:
-prev:
+final: prev:
 
 let
   packages = import ./packages inputs final prev;
