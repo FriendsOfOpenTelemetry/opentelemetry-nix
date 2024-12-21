@@ -1,8 +1,9 @@
-{ lib
-, python3
-, python3Packages
-, fetchFromGitHub
-, substituteAll
+{
+  lib,
+  python3,
+  python3Packages,
+  fetchFromGitHub,
+  substituteAll,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -21,15 +22,17 @@ python3Packages.buildPythonApplication rec {
 
   patches = [ ./shebang.patch ];
 
-  postPatch = let
-    setup = substituteAll {
-      src = ./setup.py;
-      desc = meta.description;
-      inherit pname version;
-    };
-  in ''
-    ln -s ${setup} setup.py
-  '';
+  postPatch =
+    let
+      setup = substituteAll {
+        src = ./setup.py;
+        desc = meta.description;
+        inherit pname version;
+      };
+    in
+    ''
+      ln -s ${setup} setup.py
+    '';
 
   propagatedBuildInputs = [
     python3Packages.requests
@@ -43,6 +46,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/agardnerIT/tracepusher/tree/main/har-to-otel";
     license = licenses.asl20;
     maintainers = with maintainers; [ gaelreyrol ];
-    mainProgrom = "har-to-otel.py";
+    mainProgram = "har-to-otel.py";
   };
 }

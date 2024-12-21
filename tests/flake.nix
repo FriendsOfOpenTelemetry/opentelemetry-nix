@@ -7,7 +7,12 @@
     };
   };
 
-  outputs = { self, nixpkgs, opentelemetry-nix }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      opentelemetry-nix,
+    }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -18,7 +23,7 @@
       version = "1.0.0";
       config = {
         exporters = [
-          { gomod = "go.opentelemetry.io/collector/exporter/debugexporter v0.97.0"; }
+          { gomod = "go.opentelemetry.io/collector/exporter/debugexporter v0.115.0"; }
         ];
       };
     in
@@ -26,7 +31,7 @@
       packages.x86_64-linux = {
         debug-otel-collector = pkgs.buildOtelCollector {
           inherit pname version config;
-          vendorHash = "sha256-3PHOiaDs2E07PMS0n2sR3BCFpFCdnKNErGspHwdo/sk=";
+          vendorHash = "sha256-sq3T9bOWDeJMZD9+LE4nPc9fqF3tkEaGEy4dJ/qgkgA=";
         };
         debug-otel-config = pkgs.mkOtelCollectorBuilderConfiguration {
           inherit pname version config;

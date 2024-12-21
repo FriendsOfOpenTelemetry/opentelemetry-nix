@@ -1,25 +1,32 @@
-{ lib
-, stdenv
-, mkOtelCollectorBuilderConfiguration
-, installShellFiles
-, otel-collector-builder
+{
+  lib,
+  stdenv,
+  mkOtelCollectorBuilderConfiguration,
+  installShellFiles,
+  opentelemetry-collector-builder,
 }:
 
-{ name ? args'.pname
-, vendorHash ? (throw "builOtelCollector: vendorHash is missing")
-, otelBuilderPackage ? otel-collector-builder
-, meta ? { }
-, ...
+{
+  name ? args'.pname,
+  vendorHash ? (throw "builOtelCollector: vendorHash is missing"),
+  otelBuilderPackage ? opentelemetry-collector-builder,
+  meta ? { },
+  ...
 }@args':
 let
   args = removeAttrs args' [ "vendorHash" ];
-  otelCollectorBuilderConfiguration = mkOtelCollectorBuilderConfiguration (args // { goPackage = otelBuilderPackage.go; });
+  otelCollectorBuilderConfiguration = mkOtelCollectorBuilderConfiguration (
+    args // { goPackage = otelBuilderPackage.go; }
+  );
   otelCollectorBuilderModules = stdenv.mkDerivation {
     pname = "${name}-modules";
     inherit (args') version;
     src = otelCollectorBuilderConfiguration;
 
-    nativeBuildInputs = [ otelBuilderPackage otelBuilderPackage.go ];
+    nativeBuildInputs = [
+      otelBuilderPackage
+      otelBuilderPackage.go
+    ];
 
     dontUnpack = true;
 
@@ -70,7 +77,11 @@ stdenv.mkDerivation {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ otelBuilderPackage otelBuilderPackage.go installShellFiles ];
+  nativeBuildInputs = [
+    otelBuilderPackage
+    otelBuilderPackage.go
+    installShellFiles
+  ];
 
   configurePhase = ''
     runHook preConfigure
@@ -113,7 +124,12 @@ stdenv.mkDerivation {
   '';
 
   passthru = {
-    inherit otelBuilderPackage otelCollectorBuilderConfiguration otelCollectorBuilderModules vendorHash;
+    inherit
+      otelBuilderPackage
+      otelCollectorBuilderConfiguration
+      otelCollectorBuilderModules
+      vendorHash
+      ;
   };
 
   meta = {

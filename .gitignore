@@ -2,3 +2,4 @@ result
 output
 .direnv
 *.yaml
+tests/flake.lock

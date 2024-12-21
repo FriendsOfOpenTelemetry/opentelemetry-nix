@@ -1,8 +1,9 @@
-{ lib
-, buildNpmPackage
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
+{
+  lib,
+  buildNpmPackage,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
 }:
 
 let
@@ -43,7 +44,10 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  subPackages = [ "cli" "server" ];
+  subPackages = [
+    "cli"
+    "server"
+  ];
 
   ldflags = [
     "-s"
