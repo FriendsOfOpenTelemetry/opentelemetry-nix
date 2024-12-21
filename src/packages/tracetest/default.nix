@@ -4,16 +4,17 @@
   buildGoModule,
   fetchFromGitHub,
   installShellFiles,
+  nodejs_20,
 }:
 
 let
   pname = "tracetest";
-  version = "0.16.1";
+  version = "1.7.1";
   src = fetchFromGitHub {
     owner = "kubeshop";
     repo = "tracetest";
-    rev = "v${version}";
-    hash = "sha256-3YzCq3mOcF42dzxhkkk7089Xv1BmwHODbDkEhs1aAmk=";
+    tag = "v${version}";
+    hash = "sha256-Y/H8L4PysJjCGyE7Q++jpUAS5K/+Uxk4/rZ4RHVO+ig=";
   };
   ui = buildNpmPackage {
     inherit pname version src;
@@ -22,8 +23,9 @@ let
 
     patches = [ ./package-lock.patch ];
 
-    npmDepsHash = "sha256-ktEYoaakYyxj6uwkFwwAiY4faw5K91GaxvPs8v2n7TA=";
+    nodejs = nodejs_20;
 
+    npmDepsHash = "sha256-mWRU//M/UDrXrFCNI1actvNM/vuk4T9KdzlZCKoEXZ4=";
     npmPackFlags = [ "--ignore-scripts" ];
 
     env.CYPRESS_INSTALL_BINARY = 0;
@@ -40,7 +42,10 @@ in
 buildGoModule rec {
   inherit pname version src;
 
-  vendorHash = "sha256-QzdrqNtQQJ/aOTOFsagvlOxGS5wzZOvulLNhPXbYjnY=";
+  # Fixes https://github.com/grafana/godeltaprof/issues/4
+  patches = [ ./go.sum.patch ];
+
+  vendorHash = "sha256-y+OHaoEtBYSyYZTfEc3Eo8r1tVSuqrL7omJQo6MtfDs=";
 
   nativeBuildInputs = [ installShellFiles ];
 
