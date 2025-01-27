@@ -23,7 +23,7 @@
       version = "1.0.0";
       config = {
         exporters = [
-          { gomod = "go.opentelemetry.io/collector/exporter/debugexporter v0.115.0"; }
+          { gomod = "go.opentelemetry.io/collector/exporter/debugexporter v0.118.0"; }
         ];
       };
     in
@@ -31,7 +31,7 @@
       packages.x86_64-linux = {
         debug-otel-collector = pkgs.buildOtelCollector {
           inherit pname version config;
-          vendorHash = "sha256-bYZFbXuZiuvD8wSGqashB/+XYZxl2HFEDpVN+f0sSuA=";
+          vendorHash = "sha256-Tel7HWBEhbyClGchSMLzSy7nHtRGQEiq7DgDogaFbZs=";
         };
         debug-otel-config = pkgs.mkOtelCollectorBuilderConfiguration {
           inherit pname version config;
