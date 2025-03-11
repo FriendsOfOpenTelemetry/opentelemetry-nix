@@ -40,7 +40,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@v16
       - name: 'Setup the Nix Cache'
         uses: DeterminateSystems/flakehub-cache-action@v1
-      - uses: cachix/cachix-action@v15
+      - uses: cachix/cachix-action@v16
         with:
           name: opentelemetry
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
