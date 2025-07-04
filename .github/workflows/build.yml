@@ -17,7 +17,7 @@ jobs:
       - name: 'Set up Git repository'
         uses: actions/checkout@v4
       - name: 'Install Nix'
-        uses: DeterminateSystems/nix-installer-action@v17
+        uses: DeterminateSystems/nix-installer-action@v18
       - name: 'Build packages matrix'
         id: set-packages
         run: |
@@ -37,7 +37,7 @@ jobs:
       - name: 'Set up Git repository'
         uses: actions/checkout@v4
       - name: 'Install Nix'
-        uses: DeterminateSystems/nix-installer-action@v17
+        uses: DeterminateSystems/nix-installer-action@v18
       - name: 'Setup the Nix Cache'
         uses: DeterminateSystems/flakehub-cache-action@v2
       - uses: cachix/cachix-action@v16
@@ -57,7 +57,7 @@ jobs:
       - name: 'Set up Git repository'
         uses: actions/checkout@v4
       - name: 'Install Nix'
-        uses: DeterminateSystems/nix-installer-action@v17
+        uses: DeterminateSystems/nix-installer-action@v18
       - name: 'Flake Build'
         run: |
           nix build -L
