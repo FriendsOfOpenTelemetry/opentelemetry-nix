@@ -15,7 +15,7 @@ jobs:
       packages: '${{ steps.set-packages.outputs.packages }}'
     steps:
       - name: 'Set up Git repository'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: 'Install Nix'
         uses: DeterminateSystems/nix-installer-action@v18
       - name: 'Build packages matrix'
@@ -35,7 +35,7 @@ jobs:
         archs: [{os: ubuntu-latest, arch: x86_64-linux}]
     steps:
       - name: 'Set up Git repository'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: 'Install Nix'
         uses: DeterminateSystems/nix-installer-action@v18
       - name: 'Setup the Nix Cache'
@@ -55,7 +55,7 @@ jobs:
         working-directory: tests
     steps:
       - name: 'Set up Git repository'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: 'Install Nix'
         uses: DeterminateSystems/nix-installer-action@v18
       - name: 'Flake Build'
