@@ -10,7 +10,7 @@ jobs:
       - name: 'Set up Git repository'
         uses: actions/checkout@v5
       - name: 'Install Nix'
-        uses: DeterminateSystems/nix-installer-action@v18
+        uses: DeterminateSystems/nix-installer-action@v19
       - name: 'Flake Check'
         run: |
           nix flake check -L
@@ -25,7 +25,7 @@ jobs:
       - name: 'Set up Git repository'
         uses: actions/checkout@v5
       - name: 'Install Nix'
-        uses: DeterminateSystems/nix-installer-action@v18
+        uses: DeterminateSystems/nix-installer-action@v19
       - name: 'Flake Check'
         run: |
           nix flake check -L
